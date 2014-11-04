@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace 单词处理
@@ -17,13 +18,44 @@ namespace 单词处理
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Save(string fileName, string content)
         {
+            string f = AppDomain.CurrentDomain.BaseDirectory + fileName + ".txt";
+            System.IO.File.WriteAllText(f, content);
+            //System.Diagnostics.Process.Start(f);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        int number = 0;
+        string filename = "";
+        iciba ciba = new iciba();
+
+        private void btn_onlyword_Click(object sender, EventArgs e)
+        {
+            if (!int.TryParse(txt_numberPerPage.Text,out number))
+	        {
+                MessageBox.Show("请填写设置每个文件的单词数");
+                return;
+	        }
+            if (txt_FileName.Text=="")
+            {
+                MessageBox.Show("请填写文件名");
+                return;
+            }
+            else
+            {
+                filename = txt_FileName.Text;
+            }
+            
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             ofd.Multiselect = false;
 
-            if (ofd.ShowDialog()!= System.Windows.Forms.DialogResult.OK)
+            if (ofd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             {
                 return;
             }
@@ -31,136 +63,59 @@ namespace 单词处理
             string fi = ofd.FileName;
             this.label1.Text = fi;
             this.Update();
-            var s1 = System.IO.File.ReadAllLines(fi);
-            string[] result = new string[s1.Count()];
+            var s1 = System.IO.File.ReadAllText(fi);
 
-            for (int i = 0; i < s1.Count(); i++)
+            for (int i = 1; i < 7000; i++)
             {
-                result[i] = s1[i].TrimStart(' ');
-            }
-            //两个意思的单词
-            System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(@"(\w+)\s+((n|adj|vt|adv|vi|prep|abbr)\.\s*\&*\s*(n|adj|vt|adv|vi|prep|abbr)\.)\s*(.+)");
-            //一个意思的单词
-            System.Text.RegularExpressions.Regex r2 = new System.Text.RegularExpressions.Regex(@"(\w+)\s+((n|adj|vt|adv|vi|prep|abbr)\.)\s*(.+)");
-            //短语
-            System.Text.RegularExpressions.Regex r3 = new System.Text.RegularExpressions.Regex(@"((\w+\s+)+)([^a-zA-Z()]+\w+)");
-            //续上一个单词的解释
-            System.Text.RegularExpressions.Regex r4 = new System.Text.RegularExpressions.Regex(@"^((n|adj|vt|adv|vi|prep|abbr)\.).*?(?=[（\(|\u4e00-\u9fa5])");
 
-            System.Text.RegularExpressions.Regex rWord = new System.Text.RegularExpressions.Regex(@"[a-zA-Z]+");
+            }
+
+
+            System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(@"[a-zA-Z'-]+");
+            
+            var ms = r.Matches(s1);
+
 
             StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
-            StringBuilder sb3 = new StringBuilder();
-            StringBuilder sb4 = new StringBuilder();
-            this.progressBar1.Maximum = s1.Count();
-            for (int i = 0; i < s1.Count(); i++)
+            foreach (System.Text.RegularExpressions.Match item in ms)
             {
-                if (r.IsMatch(result[i]))
-                {
-                    var m = r.Match(result[i]);
-                    sb.Append("1\t" + m.Groups[1] + "\t" + m.Groups[2] + "\t" +  m.Groups[5]);
-                    if (rWord.IsMatch(m.Groups[1].ToString())&&checkBox1.Checked)
-                    {
-                        sb.AppendLine("\t" + GetPhonetic(m.Groups[1].ToString(), false));
-                    }
-                    else
-                    {
-                        sb.AppendLine();
-                    }
-                }
-                else if (r2.IsMatch(result[i]))
-                {
-                    var m2 = r2.Match(result[i]);
-                    sb.Append("2\t" + m2.Groups[1] + "\t" + m2.Groups[2] + "\t" + m2.Groups[4]);
-                    if (rWord.IsMatch(m2.Groups[1].ToString()) && checkBox1.Checked)
-                    {
-                        sb.AppendLine("\t" + GetPhonetic(m2.Groups[1].ToString(), false));
-                    }
-                    else
-                    {
-                        sb.AppendLine();
-                    }
-                }
-                else if (r3.IsMatch(result[i]))
-                {
-                    var m = r3.Match(result[i]);
-                    sb.AppendLine("3\t" + m.Groups[1].ToString().TrimStart(' ') + "\t\t" + m.Groups[3]);
-                }
-                else if (r4.IsMatch(result[i]))
-                {
-                    var m =r4.Match(result[i]);
-                    sb.AppendLine("4\t\t"  + m.Groups[0] + "\t" +  result[i].Replace(m.Groups[0].ToString(),"").Trim());
-                }
-                else
-                {
-                    sb.AppendLine("5\t" + result[i]);
-                }
+                sb.AppendLine(item.ToString());
 
-                this.progressBar1.Value = i+1;
-                this.txt_result.AppendText(sb.ToString());
-                sb2.Append(sb.ToString());
-                sb.Clear();
-                //if (i==40)
-                //{
-                //    break;
-                //}
             }
+            Save("去除杂项的单词表", sb.ToString());
 
-            Save("r1", sb2.ToString());
-            MessageBox.Show("Done!");
-            //Save("r3", sb3.ToString());
-            //Application.Exit();
+            // var kkk = r.Replace(s1, "");
 
-        }
-
-        private void Save(string fileName, string content)
-        {
-            string f = AppDomain.CurrentDomain.BaseDirectory + fileName + ".txt";
-            System.IO.File.WriteAllText(f, content);
-            System.Diagnostics.Process.Start(f);
-        }
-
-        private string GetPhonetic(string word,bool isUSA)
-        {
-            using (WebClient wc = new WebClient())
-            {
-
-                var bs = wc.DownloadData(new Uri("http://dict.youdao.com/search?le=eng&q="+word+"&keyfrom=dict.top"));
-
-                HtmlAgilityPack.HtmlDocument html = new HtmlAgilityPack.HtmlDocument();
-
-                var s = System.Text.Encoding.UTF8.GetString(bs);
-
-                html.LoadHtml(s);
-                
-                var nodes =  html.DocumentNode.SelectNodes("//div/span['class=phonetic']/span");
-
-                //lucida sans unicode",arial,sans-serif
-                if (nodes.Count >= 2)
-                {
-                    if (isUSA)
-                    {
-                        return nodes[2].InnerText;
-                    }
-                    else
-                    {
-                        return nodes[1].InnerText;
-                    } 
-                }
-                return "";
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.textBox2.Text = GetPhonetic(this.textBox1.Text, false);
-            this.textBox3.Text = GetPhonetic(this.textBox1.Text, true);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
+            //MessageBox.Show(kkk);
             
+            
+            this.progressBar1.Maximum = ms.Count;
+//            StringBuilder sb = new StringBuilder();
+
+            int startNumber = 0;
+            foreach (System.Text.RegularExpressions.Match w in ms)
+            {
+                var wd =  ciba.QueryWord(w.ToString());
+                if (wd!=null)
+                {
+                    txt_result.AppendText(wd.ToString());
+                }
+                this.progressBar1.Value = this.progressBar1.Value + 1;
+                this.lbl_n.Text = this.progressBar1.Value.ToString() + "/" + this.progressBar1.Maximum.ToString();
+                this.Update();
+                if (progressBar1.Value % number == 0)
+                {
+                    Save(filename + (progressBar1.Value-499) + "-" + this.progressBar1.Value.ToString(), txt_result.Text);
+                    txt_result.Text = "";
+                    startNumber = progressBar1.Value;
+                }
+            }
+            Save(filename + number.ToString() + "-" + progressBar1.Value, txt_result.Text);
+
+            MessageBox.Show("完成！结果文件在程序所在的目录！");
+            System.Diagnostics.Process.Start("explorer", AppDomain.CurrentDomain.BaseDirectory);
         }
+
+
     }
 }

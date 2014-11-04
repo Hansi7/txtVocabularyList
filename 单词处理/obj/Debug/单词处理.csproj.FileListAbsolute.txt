@@ -1,0 +1,4 @@
+C:\Users\su\Documents\Visual Studio 2012\Projects\单词处理.exe
+C:\Users\su\Documents\Visual Studio 2012\Projects\单词处理.pdb
+C:\Users\su\Documents\Visual Studio 2012\Projects\单词处理\Bin\单词处理.exe
+C:\Users\su\Documents\Visual Studio 2012\Projects\单词处理\Bin\单词处理.pdb
