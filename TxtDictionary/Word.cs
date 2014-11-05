@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace 单词处理
+namespace TxtDictionary
 {
     public class Word
     {

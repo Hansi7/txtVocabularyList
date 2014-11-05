@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "单词处理", "单词处理\单词处理.csproj", "{0FAB5494-0F21-43E0-BB3D-A88DD03B5BC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TxtDictionary", "TxtDictionary\TxtDictionary.csproj", "{0FAB5494-0F21-43E0-BB3D-A88DD03B5BC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace 单词处理
+﻿namespace TxtDictionary
 {
     partial class Form1
     {
