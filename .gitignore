@@ -1,6 +1,5 @@
 *.mdb
 *.ldb
+*.pdb
 
-Debug/
-Release/
 obj/

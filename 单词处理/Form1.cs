@@ -112,8 +112,24 @@ namespace 单词处理
             }
             Save(filename + number.ToString() + "-" + progressBar1.Value, txt_result.Text);
 
-            MessageBox.Show("完成！结果文件在程序所在的目录！");
+            MessageBox.Show("完成！结果文件在程序所在的目录！ 确定后打开目录","提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             System.Diagnostics.Process.Start("explorer", AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        private void btn_Info_Click(object sender, EventArgs e)
+        {
+            this.txt_result.Text = @"
+1.填写设置,写入每个文件的单词数,如果只要一个文件,请填写一个足够大的数字，比如99999.写入文件名。
+2.选择导入文件，导入文件为单词列表，支持空格、符号分割、干扰字符可以在整理过程中去除。
+3.使用wap.iciba.com网站作为数据源。
+4.全选、复制、粘贴到Excel中可以多列显示。
+
+                        ---作者：Hansi
+                           2014年11月5日
+";
+
+
+
         }
 
 
