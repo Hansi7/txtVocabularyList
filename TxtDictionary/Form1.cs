@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace 单词处理
+namespace TxtDictionary
 {
     public partial class Form1 : Form
     {

@@ -7,8 +7,8 @@
     <ProjectGuid>{0FAB5494-0F21-43E0-BB3D-A88DD03B5BC2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>单词处理</RootNamespace>
-    <AssemblyName>单词处理</AssemblyName>
+    <RootNamespace>TxtDictionary</RootNamespace>
+    <AssemblyName>TxtDictionary</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -68,6 +68,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
