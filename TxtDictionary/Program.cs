@@ -10,7 +10,8 @@ namespace TxtDictionary
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
-        [STAThread]
+        //[STAThread]
+        [STAThreadAttribute]
         static void Main()
         {
             Application.EnableVisualStyles();

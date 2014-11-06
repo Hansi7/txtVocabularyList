@@ -16,32 +16,32 @@ namespace TxtDictionary
         public Form1()
         {
             InitializeComponent();
+            ProgressBar.CheckForIllegalCrossThreadCalls = false;
         }
 
-        private void Save(string fileName, string content)
-        {
-            string f = AppDomain.CurrentDomain.BaseDirectory + fileName + ".txt";
-            System.IO.File.WriteAllText(f, content);
-            //System.Diagnostics.Process.Start(f);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        int number = 0;
         string filename = "";
         iciba ciba = new iciba();
+        int CountInPage = 0;
+        string subDirName;
+        Thread th;
 
+        void reset()
+        {
+            progressBar1.Value = 0;
+            txt_result.Text = "";
+
+            subDirName = AppDomain.CurrentDomain.BaseDirectory + @"生成结果" + DateTime.Now.ToString("yyyyMMddHHmmss");
+        }
         private void btn_onlyword_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(txt_numberPerPage.Text,out number))
-	        {
+            reset();
+
+            if (!int.TryParse(txt_numberPerPage.Text, out CountInPage))
+            {
                 MessageBox.Show("请填写设置每个文件的单词数");
                 return;
-	        }
-            if (txt_FileName.Text=="")
+            }
+            if (txt_FileName.Text == "")
             {
                 MessageBox.Show("请填写文件名");
                 return;
@@ -50,7 +50,7 @@ namespace TxtDictionary
             {
                 filename = txt_FileName.Text;
             }
-            
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             ofd.Multiselect = false;
@@ -59,63 +59,74 @@ namespace TxtDictionary
             {
                 return;
             }
-
-            string fi = ofd.FileName;
-            this.label1.Text = fi;
+            this.label1.Text = ofd.FileName;
             this.Update();
-            var s1 = System.IO.File.ReadAllText(fi);
-
-            for (int i = 1; i < 7000; i++)
-            {
-
-            }
 
 
+            th = new Thread(process);
+            th.IsBackground = true;
+            th.Start();
+
+        }
+        private void process()
+        {
+            var s1 = System.IO.File.ReadAllText(label1.Text);
             System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(@"[a-zA-Z'-]+");
-            
             var ms = r.Matches(s1);
-
-
-            StringBuilder sb = new StringBuilder();
-            foreach (System.Text.RegularExpressions.Match item in ms)
-            {
-                sb.AppendLine(item.ToString());
-
-            }
-            Save("去除杂项的单词表", sb.ToString());
-
-            // var kkk = r.Replace(s1, "");
-
-            //MessageBox.Show(kkk);
-            
-            
             this.progressBar1.Maximum = ms.Count;
-//            StringBuilder sb = new StringBuilder();
-
-            int startNumber = 0;
+            int numberInPage = 0;
+            int A = 0;
+            int B = 0;
+            StringBuilder sbNotFound = new StringBuilder();
+            StringBuilder sbSkip = new StringBuilder();
+            StringBuilder sbResult = new StringBuilder();
             foreach (System.Text.RegularExpressions.Match w in ms)
             {
-                var wd =  ciba.QueryWord(w.ToString());
-                if (wd!=null)
+                var wd = ciba.QueryWord(w.ToString());
+                if (wd != null)
                 {
-                    txt_result.AppendText(wd.ToString());
+                    if (wd.Text.Contains('\'') && cb_removeP.Checked)
+                    {
+                        sbSkip.Append(wd.ToString());
+                    }
+                    else
+                    {
+                        txt_result.AppendText(wd.ToString());
+                        sbResult.Append(wd.ToString());
+                        numberInPage++;
+                    }
                 }
+                else
+                {
+                    sbNotFound.AppendLine(w.ToString());
+                }
+
                 this.progressBar1.Value = this.progressBar1.Value + 1;
                 this.lbl_n.Text = this.progressBar1.Value.ToString() + "/" + this.progressBar1.Maximum.ToString();
                 this.Update();
-                if (progressBar1.Value % number == 0)
+
+                if (CountInPage == numberInPage)
                 {
-                    Save(filename + (progressBar1.Value-499) + "-" + this.progressBar1.Value.ToString(), txt_result.Text);
+                    B = B + CountInPage;
+                    Save(filename + "_" + (A + 1) + "-" + B, sbResult.ToString());
                     txt_result.Text = "";
-                    startNumber = progressBar1.Value;
+                    sbResult.Clear();
+                    numberInPage = 0;
+                    A = B;
                 }
             }
-            Save(filename + number.ToString() + "-" + progressBar1.Value, txt_result.Text);
-
-            MessageBox.Show("完成！结果文件在程序所在的目录！ 确定后打开目录","提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            System.Diagnostics.Process.Start("explorer", AppDomain.CurrentDomain.BaseDirectory);
+            StringBuilder sbWords = new StringBuilder();
+            foreach (System.Text.RegularExpressions.Match item in ms)
+            {
+                sbWords.AppendLine(item.ToString());
+            }
+            Save("除杂的单词表", sbWords.ToString());
+            Save(filename + "_" + (A + 1) + "-" + (A + numberInPage), txt_result.Text);
+            Save("未找到的单词", sbNotFound.ToString());
+            Save("已忽略的单词", sbSkip.ToString());
+            MessageBox.Show("完成！结果文件在程序所在的目录！ 确定后打开目录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            System.Diagnostics.Process.Start("explorer", subDirName);
         }
-
         private void btn_Info_Click(object sender, EventArgs e)
         {
             this.txt_result.Text = @"
@@ -130,6 +141,22 @@ namespace TxtDictionary
 
 
 
+        }
+        private void Save(string fileName, string content)
+        {
+            string f = System.IO.Path.Combine(subDirName, fileName + ".txt");
+            if (!System.IO.Directory.Exists(System.IO.Path.GetDirectoryName(f)))
+            {
+                System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(f));
+            }
+
+            System.IO.File.WriteAllText(f, content);
+            //System.Diagnostics.Process.Start(f);
+        }
+        private void btn_Stop_Click(object sender, EventArgs e)
+        {
+            this.th.Abort();
+            this.txt_result.AppendText("\r\n用户终止！");
         }
 
 

@@ -35,11 +35,13 @@
             this.lbl_n = new System.Windows.Forms.Label();
             this.txt_numberPerPage = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cb_removeP = new System.Windows.Forms.CheckBox();
             this.txt_FileName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_Info = new System.Windows.Forms.Button();
+            this.btn_Stop = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,15 +58,15 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(14, 50);
+            this.progressBar1.Location = new System.Drawing.Point(124, 50);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(833, 23);
+            this.progressBar1.Size = new System.Drawing.Size(723, 23);
             this.progressBar1.TabIndex = 5;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(107, 20);
+            this.label1.Location = new System.Drawing.Point(121, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 16);
             this.label1.TabIndex = 6;
@@ -75,9 +77,9 @@
             this.btn_onlyword.Location = new System.Drawing.Point(14, 13);
             this.btn_onlyword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_onlyword.Name = "btn_onlyword";
-            this.btn_onlyword.Size = new System.Drawing.Size(87, 31);
+            this.btn_onlyword.Size = new System.Drawing.Size(101, 31);
             this.btn_onlyword.TabIndex = 8;
-            this.btn_onlyword.Text = "读取单词表";
+            this.btn_onlyword.Text = "打开单词表...";
             this.btn_onlyword.UseVisualStyleBackColor = true;
             this.btn_onlyword.Click += new System.EventHandler(this.btn_onlyword_Click);
             // 
@@ -99,6 +101,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cb_removeP);
             this.groupBox1.Controls.Add(this.txt_FileName);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
@@ -106,10 +109,22 @@
             this.groupBox1.Controls.Add(this.txt_numberPerPage);
             this.groupBox1.Location = new System.Drawing.Point(14, 79);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(545, 57);
+            this.groupBox1.Size = new System.Drawing.Size(727, 57);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "设置";
+            // 
+            // cb_removeP
+            // 
+            this.cb_removeP.AutoSize = true;
+            this.cb_removeP.Checked = true;
+            this.cb_removeP.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_removeP.Location = new System.Drawing.Point(532, 21);
+            this.cb_removeP.Name = "cb_removeP";
+            this.cb_removeP.Size = new System.Drawing.Size(147, 20);
+            this.cb_removeP.TabIndex = 17;
+            this.cb_removeP.Text = "忽略带‘(单引号)的单词";
+            this.cb_removeP.UseVisualStyleBackColor = true;
             // 
             // txt_FileName
             // 
@@ -147,7 +162,7 @@
             // 
             // btn_Info
             // 
-            this.btn_Info.Location = new System.Drawing.Point(565, 94);
+            this.btn_Info.Location = new System.Drawing.Point(747, 94);
             this.btn_Info.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Info.Name = "btn_Info";
             this.btn_Info.Size = new System.Drawing.Size(87, 31);
@@ -156,11 +171,23 @@
             this.btn_Info.UseVisualStyleBackColor = true;
             this.btn_Info.Click += new System.EventHandler(this.btn_Info_Click);
             // 
+            // btn_Stop
+            // 
+            this.btn_Stop.Location = new System.Drawing.Point(14, 42);
+            this.btn_Stop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_Stop.Name = "btn_Stop";
+            this.btn_Stop.Size = new System.Drawing.Size(101, 31);
+            this.btn_Stop.TabIndex = 15;
+            this.btn_Stop.Text = "停止";
+            this.btn_Stop.UseVisualStyleBackColor = true;
+            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(871, 576);
+            this.Controls.Add(this.btn_Stop);
             this.Controls.Add(this.btn_Info);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lbl_n);
@@ -174,7 +201,6 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "单词表制作工具";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -196,6 +222,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txt_FileName;
         private System.Windows.Forms.Button btn_Info;
+        private System.Windows.Forms.CheckBox cb_removeP;
+        private System.Windows.Forms.Button btn_Stop;
     }
 }
 
