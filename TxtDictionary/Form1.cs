@@ -24,12 +24,15 @@ namespace TxtDictionary
         int CountInPage = 0;
         string subDirName;
         Thread th;
+        List<Word> l_result = new List<Word>();
+        List<Word> l_ignore = new List<Word>();
 
         void reset()
         {
             progressBar1.Value = 0;
             txt_result.Text = "";
-
+            l_result.Clear();
+            l_ignore.Clear();
             subDirName = AppDomain.CurrentDomain.BaseDirectory + @"生成结果" + DateTime.Now.ToString("yyyyMMddHHmmss");
         }
         private void btn_onlyword_Click(object sender, EventArgs e)
@@ -78,7 +81,7 @@ namespace TxtDictionary
             int A = 0;
             int B = 0;
             StringBuilder sbNotFound = new StringBuilder();
-            StringBuilder sbSkip = new StringBuilder();
+            StringBuilder sbIgnore = new StringBuilder();
             StringBuilder sbResult = new StringBuilder();
             foreach (System.Text.RegularExpressions.Match w in ms)
             {
@@ -87,12 +90,14 @@ namespace TxtDictionary
                 {
                     if (wd.Text.Contains('\'') && cb_removeP.Checked)
                     {
-                        sbSkip.Append(wd.ToString());
+                        sbIgnore.Append(wd.ToString());
+                        l_ignore.Add(wd);
                     }
                     else
                     {
                         txt_result.AppendText(wd.ToString());
                         sbResult.Append(wd.ToString());
+                        l_result.Add(wd);
                         numberInPage++;
                     }
                 }
@@ -123,7 +128,8 @@ namespace TxtDictionary
             Save("除杂的单词表", sbWords.ToString());
             Save(filename + "_" + (A + 1) + "-" + (A + numberInPage), txt_result.Text);
             Save("未找到的单词", sbNotFound.ToString());
-            Save("已忽略的单词", sbSkip.ToString());
+            Save("已忽略的单词", sbIgnore.ToString());
+            new ExcelTool().Save(subDirName + "\\Result.xlsx", l_result,CountInPage);
             MessageBox.Show("完成！结果文件在程序所在的目录！ 确定后打开目录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
             System.Diagnostics.Process.Start("explorer", subDirName);
         }
@@ -155,10 +161,12 @@ namespace TxtDictionary
         }
         private void btn_Stop_Click(object sender, EventArgs e)
         {
-            this.th.Abort();
-            this.txt_result.AppendText("\r\n用户终止！");
+            if (th!=null)
+            {
+                this.th.Abort();
+                this.txt_result.AppendText("\r\n用户终止！");
+            }
         }
-
 
     }
 }

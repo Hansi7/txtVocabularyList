@@ -97,7 +97,7 @@
             // 
             this.txt_numberPerPage.Location = new System.Drawing.Point(32, 19);
             this.txt_numberPerPage.Name = "txt_numberPerPage";
-            this.txt_numberPerPage.Size = new System.Drawing.Size(100, 26);
+            this.txt_numberPerPage.Size = new System.Drawing.Size(69, 26);
             this.txt_numberPerPage.TabIndex = 12;
             // 
             // groupBox1
@@ -110,7 +110,7 @@
             this.groupBox1.Controls.Add(this.txt_numberPerPage);
             this.groupBox1.Location = new System.Drawing.Point(14, 79);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(727, 57);
+            this.groupBox1.Size = new System.Drawing.Size(576, 57);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "设置";
@@ -120,7 +120,7 @@
             this.cb_removeP.AutoSize = true;
             this.cb_removeP.Checked = true;
             this.cb_removeP.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_removeP.Location = new System.Drawing.Point(532, 21);
+            this.cb_removeP.Location = new System.Drawing.Point(421, 21);
             this.cb_removeP.Name = "cb_removeP";
             this.cb_removeP.Size = new System.Drawing.Size(147, 20);
             this.cb_removeP.TabIndex = 17;
@@ -129,15 +129,15 @@
             // 
             // txt_FileName
             // 
-            this.txt_FileName.Location = new System.Drawing.Point(322, 19);
+            this.txt_FileName.Location = new System.Drawing.Point(291, 19);
             this.txt_FileName.Name = "txt_FileName";
-            this.txt_FileName.Size = new System.Drawing.Size(204, 26);
+            this.txt_FileName.Size = new System.Drawing.Size(124, 26);
             this.txt_FileName.TabIndex = 16;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(260, 22);
+            this.label4.Location = new System.Drawing.Point(229, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 16);
             this.label4.TabIndex = 15;
@@ -146,7 +146,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(138, 22);
+            this.label3.Location = new System.Drawing.Point(107, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 16);
             this.label3.TabIndex = 14;
@@ -174,7 +174,7 @@
             // 
             // btn_Stop
             // 
-            this.btn_Stop.Location = new System.Drawing.Point(14, 42);
+            this.btn_Stop.Location = new System.Drawing.Point(14, 43);
             this.btn_Stop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(101, 31);

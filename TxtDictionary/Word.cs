@@ -15,7 +15,7 @@ namespace TxtDictionary
         }
 
         public string Text { get; set; }
-        private List<Meaning> Meanings;
+        public List<Meaning> Meanings;
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
