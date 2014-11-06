@@ -43,23 +43,24 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btn_Info = new System.Windows.Forms.Button();
             this.btn_Stop = new System.Windows.Forms.Button();
+            this.txt_messageBox = new System.Windows.Forms.TextBox();
+            this.btn_QuickStart = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txt_result
             // 
-            this.txt_result.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txt_result.Location = new System.Drawing.Point(0, 159);
+            this.txt_result.Location = new System.Drawing.Point(0, 148);
             this.txt_result.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_result.Multiline = true;
             this.txt_result.Name = "txt_result";
             this.txt_result.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txt_result.Size = new System.Drawing.Size(871, 417);
+            this.txt_result.Size = new System.Drawing.Size(730, 428);
             this.txt_result.TabIndex = 4;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(124, 50);
+            this.progressBar1.Location = new System.Drawing.Point(226, 47);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(723, 23);
             this.progressBar1.TabIndex = 5;
@@ -67,7 +68,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(121, 20);
+            this.label1.Location = new System.Drawing.Point(223, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(15, 16);
             this.label1.TabIndex = 6;
@@ -78,16 +79,16 @@
             this.btn_onlyword.Location = new System.Drawing.Point(14, 13);
             this.btn_onlyword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_onlyword.Name = "btn_onlyword";
-            this.btn_onlyword.Size = new System.Drawing.Size(101, 31);
+            this.btn_onlyword.Size = new System.Drawing.Size(163, 31);
             this.btn_onlyword.TabIndex = 8;
-            this.btn_onlyword.Text = "打开单词表...";
+            this.btn_onlyword.Text = "处理txt单词列表文件";
             this.btn_onlyword.UseVisualStyleBackColor = true;
             this.btn_onlyword.Click += new System.EventHandler(this.btn_onlyword_Click);
             // 
             // lbl_n
             // 
             this.lbl_n.AutoSize = true;
-            this.lbl_n.Location = new System.Drawing.Point(790, 76);
+            this.lbl_n.Location = new System.Drawing.Point(905, 84);
             this.lbl_n.Name = "lbl_n";
             this.lbl_n.Size = new System.Drawing.Size(44, 16);
             this.lbl_n.TabIndex = 11;
@@ -108,7 +109,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txt_numberPerPage);
-            this.groupBox1.Location = new System.Drawing.Point(14, 79);
+            this.groupBox1.Location = new System.Drawing.Point(226, 84);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(576, 57);
             this.groupBox1.TabIndex = 13;
@@ -163,10 +164,10 @@
             // 
             // btn_Info
             // 
-            this.btn_Info.Location = new System.Drawing.Point(747, 94);
+            this.btn_Info.Location = new System.Drawing.Point(14, 103);
             this.btn_Info.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Info.Name = "btn_Info";
-            this.btn_Info.Size = new System.Drawing.Size(87, 31);
+            this.btn_Info.Size = new System.Drawing.Size(163, 31);
             this.btn_Info.TabIndex = 14;
             this.btn_Info.Text = "使用说明";
             this.btn_Info.UseVisualStyleBackColor = true;
@@ -174,20 +175,43 @@
             // 
             // btn_Stop
             // 
-            this.btn_Stop.Location = new System.Drawing.Point(14, 43);
+            this.btn_Stop.Location = new System.Drawing.Point(955, 47);
             this.btn_Stop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(101, 31);
+            this.btn_Stop.Size = new System.Drawing.Size(41, 23);
             this.btn_Stop.TabIndex = 15;
             this.btn_Stop.Text = "停止";
             this.btn_Stop.UseVisualStyleBackColor = true;
             this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
             // 
+            // txt_messageBox
+            // 
+            this.txt_messageBox.Location = new System.Drawing.Point(736, 148);
+            this.txt_messageBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txt_messageBox.Multiline = true;
+            this.txt_messageBox.Name = "txt_messageBox";
+            this.txt_messageBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txt_messageBox.Size = new System.Drawing.Size(314, 428);
+            this.txt_messageBox.TabIndex = 16;
+            // 
+            // btn_QuickStart
+            // 
+            this.btn_QuickStart.Location = new System.Drawing.Point(14, 47);
+            this.btn_QuickStart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_QuickStart.Name = "btn_QuickStart";
+            this.btn_QuickStart.Size = new System.Drawing.Size(163, 53);
+            this.btn_QuickStart.TabIndex = 17;
+            this.btn_QuickStart.Text = "以下面文本框内容\r\n为单词列表进行处理";
+            this.btn_QuickStart.UseVisualStyleBackColor = true;
+            this.btn_QuickStart.Click += new System.EventHandler(this.btn_QuickStart_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(871, 576);
+            this.ClientSize = new System.Drawing.Size(1058, 576);
+            this.Controls.Add(this.btn_QuickStart);
+            this.Controls.Add(this.txt_messageBox);
             this.Controls.Add(this.btn_Stop);
             this.Controls.Add(this.btn_Info);
             this.Controls.Add(this.groupBox1);
@@ -226,6 +250,8 @@
         private System.Windows.Forms.Button btn_Info;
         private System.Windows.Forms.CheckBox cb_removeP;
         private System.Windows.Forms.Button btn_Stop;
+        private System.Windows.Forms.TextBox txt_messageBox;
+        private System.Windows.Forms.Button btn_QuickStart;
     }
 }
 
