@@ -233,5 +233,10 @@ namespace TxtDictionary
 
         }
 
+        private void btn_ExcelProcess_Click(object sender, EventArgs e)
+        {
+            new Form2().ShowDialog();
+        }
+
     }
 }

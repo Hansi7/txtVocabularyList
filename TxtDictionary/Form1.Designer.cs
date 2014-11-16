@@ -45,6 +45,7 @@
             this.btn_Stop = new System.Windows.Forms.Button();
             this.txt_messageBox = new System.Windows.Forms.TextBox();
             this.btn_QuickStart = new System.Windows.Forms.Button();
+            this.btn_ExcelProcess = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,9 +91,9 @@
             this.lbl_n.AutoSize = true;
             this.lbl_n.Location = new System.Drawing.Point(905, 84);
             this.lbl_n.Name = "lbl_n";
-            this.lbl_n.Size = new System.Drawing.Size(44, 16);
+            this.lbl_n.Size = new System.Drawing.Size(46, 16);
             this.lbl_n.TabIndex = 11;
-            this.lbl_n.Text = "label4";
+            this.lbl_n.Text = "1/100";
             // 
             // txt_numberPerPage
             // 
@@ -205,11 +206,22 @@
             this.btn_QuickStart.UseVisualStyleBackColor = true;
             this.btn_QuickStart.Click += new System.EventHandler(this.btn_QuickStart_Click);
             // 
+            // btn_ExcelProcess
+            // 
+            this.btn_ExcelProcess.Location = new System.Drawing.Point(908, 118);
+            this.btn_ExcelProcess.Name = "btn_ExcelProcess";
+            this.btn_ExcelProcess.Size = new System.Drawing.Size(142, 23);
+            this.btn_ExcelProcess.TabIndex = 18;
+            this.btn_ExcelProcess.Text = "已有单词表？";
+            this.btn_ExcelProcess.UseVisualStyleBackColor = true;
+            this.btn_ExcelProcess.Click += new System.EventHandler(this.btn_ExcelProcess_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1058, 576);
+            this.Controls.Add(this.btn_ExcelProcess);
             this.Controls.Add(this.btn_QuickStart);
             this.Controls.Add(this.txt_messageBox);
             this.Controls.Add(this.btn_Stop);
@@ -252,6 +264,7 @@
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.TextBox txt_messageBox;
         private System.Windows.Forms.Button btn_QuickStart;
+        private System.Windows.Forms.Button btn_ExcelProcess;
     }
 }
 

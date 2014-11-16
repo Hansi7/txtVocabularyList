@@ -30,7 +30,6 @@ namespace TxtDictionary
                 {
 
                     //只有一个意思的时候 i =2;
-                    Console.WriteLine(i.ToString());
                     string phoneticEN,phoneticUS;
                     if (i == 2)
                     {
@@ -41,7 +40,6 @@ namespace TxtDictionary
                         catch 
                         {
                             phoneticEN = "";
-                            
                         }
 
                         try
@@ -82,13 +80,13 @@ namespace TxtDictionary
                     docSub.LoadHtml(sub1);
                     var nodesSub = docSub.DocumentNode.SelectNodes("dl");
 
-                    List<CixingChinese> lcc = new List<CixingChinese>();
+                    List<CixingChinesePair> lcc = new List<CixingChinesePair>();
                     foreach (HtmlAgilityPack.HtmlNode item in nodesSub)
                     {
                         string cixing = item.ChildNodes["dt"].InnerText;
                         string yisi = item.ChildNodes["dd"].InnerText;
 
-                        CixingChinese cc = new CixingChinese()
+                        CixingChinesePair cc = new CixingChinesePair()
                         {
                             Chinese = yisi,
                             Cixing = cixing
@@ -100,6 +98,18 @@ namespace TxtDictionary
                 }
 
                 wordToReturn = new Word(wordText, lm);
+            }
+
+            for (int i = 1; i < wordToReturn.Meanings.Count; i++)
+            {
+                if (wordToReturn.Meanings[i].PhoneticEN =="" && wordToReturn.Meanings[i-1].PhoneticEN!="")
+                {
+                    wordToReturn.Meanings[i].PhoneticEN = wordToReturn.Meanings[i - 1].PhoneticEN;
+                }
+                if (wordToReturn.Meanings[i].PhoneticUS == "" && wordToReturn.Meanings[i - 1].PhoneticUS != "")
+                {
+                    wordToReturn.Meanings[i].PhoneticUS = wordToReturn.Meanings[i - 1].PhoneticUS;
+                }
             }
             return wordToReturn;
         }
