@@ -100,15 +100,21 @@ namespace TxtDictionary
                 wordToReturn = new Word(wordText, lm);
             }
 
-            for (int i = 1; i < wordToReturn.Meanings.Count; i++)
+            if (wordToReturn!=null)
             {
-                if (wordToReturn.Meanings[i].PhoneticEN =="" && wordToReturn.Meanings[i-1].PhoneticEN!="")
+
+           
+
+                for (int i = 1; i < wordToReturn.Meanings.Count; i++)
                 {
-                    wordToReturn.Meanings[i].PhoneticEN = wordToReturn.Meanings[i - 1].PhoneticEN;
-                }
-                if (wordToReturn.Meanings[i].PhoneticUS == "" && wordToReturn.Meanings[i - 1].PhoneticUS != "")
-                {
-                    wordToReturn.Meanings[i].PhoneticUS = wordToReturn.Meanings[i - 1].PhoneticUS;
+                    if (wordToReturn.Meanings[i].PhoneticEN =="" && wordToReturn.Meanings[i-1].PhoneticEN!="")
+                    {
+                        wordToReturn.Meanings[i].PhoneticEN = wordToReturn.Meanings[i - 1].PhoneticEN;
+                    }
+                    if (wordToReturn.Meanings[i].PhoneticUS == "" && wordToReturn.Meanings[i - 1].PhoneticUS != "")
+                    {
+                        wordToReturn.Meanings[i].PhoneticUS = wordToReturn.Meanings[i - 1].PhoneticUS;
+                    }
                 }
             }
             return wordToReturn;

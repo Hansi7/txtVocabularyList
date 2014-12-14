@@ -34,7 +34,7 @@ namespace TxtDictionary
                         if (x!=1)
                         {
                             int k = 1;
-                            while (st.Cells[x - k, y].Value.ToString() == "")
+                            while (st.Cells[x - k, y].Value==null || st.Cells[x - k, y].Value.ToString() == "")
                             {
                                 k++;
                             }
