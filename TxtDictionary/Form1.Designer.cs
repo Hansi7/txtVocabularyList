@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.txt_result = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label1 = new System.Windows.Forms.Label();
             this.btn_onlyword = new System.Windows.Forms.Button();
             this.lbl_n = new System.Windows.Forms.Label();
             this.txt_numberPerPage = new System.Windows.Forms.TextBox();
@@ -45,7 +44,8 @@
             this.btn_Stop = new System.Windows.Forms.Button();
             this.txt_messageBox = new System.Windows.Forms.TextBox();
             this.btn_QuickStart = new System.Windows.Forms.Button();
-            this.btn_ExcelProcess = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +58,7 @@
             this.txt_result.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txt_result.Size = new System.Drawing.Size(730, 428);
             this.txt_result.TabIndex = 4;
+            this.txt_result.Text = "在此处输入要添加的单词，每个单词之间用回车分隔";
             // 
             // progressBar1
             // 
@@ -65,15 +66,6 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(723, 23);
             this.progressBar1.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(223, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(15, 16);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "-";
             // 
             // btn_onlyword
             // 
@@ -91,9 +83,9 @@
             this.lbl_n.AutoSize = true;
             this.lbl_n.Location = new System.Drawing.Point(905, 84);
             this.lbl_n.Name = "lbl_n";
-            this.lbl_n.Size = new System.Drawing.Size(46, 16);
+            this.lbl_n.Size = new System.Drawing.Size(44, 16);
             this.lbl_n.TabIndex = 11;
-            this.lbl_n.Text = "1/100";
+            this.lbl_n.Text = "label4";
             // 
             // txt_numberPerPage
             // 
@@ -101,6 +93,7 @@
             this.txt_numberPerPage.Name = "txt_numberPerPage";
             this.txt_numberPerPage.Size = new System.Drawing.Size(69, 26);
             this.txt_numberPerPage.TabIndex = 12;
+            this.txt_numberPerPage.Text = "99999";
             // 
             // groupBox1
             // 
@@ -135,6 +128,7 @@
             this.txt_FileName.Name = "txt_FileName";
             this.txt_FileName.Size = new System.Drawing.Size(124, 26);
             this.txt_FileName.TabIndex = 16;
+            this.txt_FileName.Text = "Grace English";
             // 
             // label4
             // 
@@ -168,7 +162,7 @@
             this.btn_Info.Location = new System.Drawing.Point(14, 103);
             this.btn_Info.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Info.Name = "btn_Info";
-            this.btn_Info.Size = new System.Drawing.Size(163, 31);
+            this.btn_Info.Size = new System.Drawing.Size(74, 31);
             this.btn_Info.TabIndex = 14;
             this.btn_Info.Text = "使用说明";
             this.btn_Info.UseVisualStyleBackColor = true;
@@ -206,22 +200,33 @@
             this.btn_QuickStart.UseVisualStyleBackColor = true;
             this.btn_QuickStart.Click += new System.EventHandler(this.btn_QuickStart_Click);
             // 
-            // btn_ExcelProcess
+            // button1
             // 
-            this.btn_ExcelProcess.Location = new System.Drawing.Point(908, 118);
-            this.btn_ExcelProcess.Name = "btn_ExcelProcess";
-            this.btn_ExcelProcess.Size = new System.Drawing.Size(142, 23);
-            this.btn_ExcelProcess.TabIndex = 18;
-            this.btn_ExcelProcess.Text = "已有单词表？";
-            this.btn_ExcelProcess.UseVisualStyleBackColor = true;
-            this.btn_ExcelProcess.Click += new System.EventHandler(this.btn_ExcelProcess_Click);
+            this.button1.Location = new System.Drawing.Point(103, 103);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 31);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "清空";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(223, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(220, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "欢迎使用单词表制作工具--Grace定制版";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1058, 576);
-            this.Controls.Add(this.btn_ExcelProcess);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_QuickStart);
             this.Controls.Add(this.txt_messageBox);
             this.Controls.Add(this.btn_Stop);
@@ -250,7 +255,6 @@
 
         private System.Windows.Forms.TextBox txt_result;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_onlyword;
         private System.Windows.Forms.Label lbl_n;
         private System.Windows.Forms.TextBox txt_numberPerPage;
@@ -264,7 +268,8 @@
         private System.Windows.Forms.Button btn_Stop;
         private System.Windows.Forms.TextBox txt_messageBox;
         private System.Windows.Forms.Button btn_QuickStart;
-        private System.Windows.Forms.Button btn_ExcelProcess;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

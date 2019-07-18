@@ -102,7 +102,7 @@ namespace TxtDictionary
                 sbWords.AppendLine(item.ToString().Trim());
             }
             //写单词表
-            Save("除杂的单词表", sbWords.ToString());
+            Save("已查的单词表", sbWords.ToString());
 
 
             this.progressBar1.Maximum = ms.Count;
@@ -184,11 +184,21 @@ namespace TxtDictionary
             this.txt_result.Text = @"
 1.填写设置,写入每个文件的单词数,如果只要一个文件,请填写一个足够大的数字，比如99999.写入文件名。
 2.选择导入文件，导入文件为单词列表，支持除'单引号 -连字符 空格 以外的任意符号分割、干扰字符可以在整理过程中去除。
-3.使用wap.iciba.com网站作为数据源。
+3.使用iciba.com网站作为数据源。
 4.全选、复制、粘贴到Excel中可以多列显示。
 
                         ---作者：Hansi
                            2014年11月5日
+
+修改了一下，原来的不好使了。
+嘿嘿                        2017年6月2日
+
+公众号：hansi-zt
+微信号：hansi7
+微博：@麦田呱呱
+
+有问题加微信慢慢聊哦~
+
 ";
 
 
@@ -233,10 +243,9 @@ namespace TxtDictionary
 
         }
 
-        private void btn_ExcelProcess_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            new Form2().ShowDialog();
+            txt_result.Text = string.Empty;
         }
-
     }
 }

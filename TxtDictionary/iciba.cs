@@ -10,7 +10,7 @@ namespace TxtDictionary
     {
         WebClient wc = new WebClient();
 
-        string urlBase = "http://wap.iciba.com/cword/";
+        string urlBase = "http://dict-co.iciba.com/api/dictionary.php?key=EBCFD059A10094F790FD6A3F56E3CA6A&w=";
         public Word QueryWord(string wordText)
         {
             var data = wc.DownloadData(urlBase + wordText);
@@ -21,102 +21,55 @@ namespace TxtDictionary
 
             doc.LoadHtml(htmlStr);
 
-            var nodes = doc.DocumentNode.SelectNodes("//div[@class='h2']");
-            Word wordToReturn = null;
-            if (nodes!=null && nodes.Count >= 2)
+            //var word = doc.DocumentNode.SelectNodes("dict/key")[0].InnerText;
+            List<Meaning> lm = new List<Meaning>();
+            string en, us;
+            try
             {
-                List<Meaning> lm = new List<Meaning>();
-                for (int i = 2; i <= nodes.Count; i++)
-                {
+                en = "["+doc.DocumentNode.SelectNodes("dict/ps")[0].InnerText + "]";
 
-                    //只有一个意思的时候 i =2;
-                    string phoneticEN,phoneticUS;
-                    if (i == 2)
-                    {
-                        try
-                        {
-                            phoneticEN = nodes[i - 1].ChildNodes[3].ChildNodes["span"].InnerText;
-                        }
-                        catch 
-                        {
-                            phoneticEN = "";
-                        }
-
-                        try
-                        {
-                            phoneticUS = nodes[i - 1].ChildNodes[4].ChildNodes["span"].InnerText;
-                        }
-                        catch
-                        {
-                            phoneticUS = "";
-                        }
-                        
-                    }
-                    else
-                    {
-                        try
-                        {
-                            phoneticEN = nodes[i - 1].ChildNodes[1].ChildNodes["span"].InnerText;
-                        }
-                        catch
-                        {
-                            phoneticEN = "";
-                        }
-                        try
-                        {
-                            phoneticUS = nodes[i - 1].ChildNodes[2].ChildNodes["span"].InnerText;
-                        }
-                        catch
-                        {
-                            phoneticUS = "";
-                        }
-                        
-                    }
-
-                    var ns = doc.DocumentNode.SelectNodes("//div[@class='y']");
-
-                    string sub1 = ns[i - 2].InnerHtml;
-                    HtmlAgilityPack.HtmlDocument docSub = new HtmlAgilityPack.HtmlDocument();
-                    docSub.LoadHtml(sub1);
-                    var nodesSub = docSub.DocumentNode.SelectNodes("dl");
-
-                    List<CixingChinesePair> lcc = new List<CixingChinesePair>();
-                    foreach (HtmlAgilityPack.HtmlNode item in nodesSub)
-                    {
-                        string cixing = item.ChildNodes["dt"].InnerText;
-                        string yisi = item.ChildNodes["dd"].InnerText;
-
-                        CixingChinesePair cc = new CixingChinesePair()
-                        {
-                            Chinese = yisi,
-                            Cixing = cixing
-                        };
-                        lcc.Add(cc);
-                    }
-                    Meaning m = new Meaning(phoneticEN, phoneticUS, lcc);
-                    lm.Add(m);
-                }
-
-                wordToReturn = new Word(wordText, lm);
             }
 
-            if (wordToReturn!=null)
+            catch 
             {
+                en = "";
+            }
+            try
+            {
+                us = "[" + doc.DocumentNode.SelectNodes("dict/ps")[1].InnerText + "]";
 
-           
+            }
+            catch 
+            {
+                us = "";
+            }
 
-                for (int i = 1; i < wordToReturn.Meanings.Count; i++)
+            List<CixingChinese> cixings = new List<CixingChinese>();
+            CixingChinese cixing = new CixingChinese();
+            int counts = 0;
+            try
+            {
+                counts = doc.DocumentNode.SelectNodes("dict/pos").Count;
+                for (int i = 0; i < counts; i++)
                 {
-                    if (wordToReturn.Meanings[i].PhoneticEN =="" && wordToReturn.Meanings[i-1].PhoneticEN!="")
-                    {
-                        wordToReturn.Meanings[i].PhoneticEN = wordToReturn.Meanings[i - 1].PhoneticEN;
-                    }
-                    if (wordToReturn.Meanings[i].PhoneticUS == "" && wordToReturn.Meanings[i - 1].PhoneticUS != "")
-                    {
-                        wordToReturn.Meanings[i].PhoneticUS = wordToReturn.Meanings[i - 1].PhoneticUS;
-                    }
+                    cixing = new CixingChinese();
+                    cixing.Cixing = doc.DocumentNode.SelectNodes("dict/pos")[i].InnerText;
+                    cixing.Cixing = cixing.Cixing.Replace("&amp;", "&");
+                    cixing.Chinese = doc.DocumentNode.SelectNodes("dict/acceptation")[i].InnerText;
+                    cixing.Chinese = cixing.Chinese.Replace("&lt;", "<").Replace("&gt;", ">");
+                    cixings.Add(cixing);
                 }
             }
+            catch 
+            {
+                return null;
+                cixing.Chinese = "";
+                cixing.Cixing = "";
+            }
+            Meaning meaning = new Meaning(en, us, cixings);
+            lm.Add(meaning);
+            Word wordToReturn = new Word(wordText, lm);
+
             return wordToReturn;
         }
 
